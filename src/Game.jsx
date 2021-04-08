@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Card} from './Card';
+import {CardHolder} from './CardHolder';
 
 export const Game = () => {
-    const [cards, setCards] = useState(Array.from(Array(12).keys()).concat(Array.from(Array(12).keys())))
-    const [turnActive, setTurnActive] = useState(false)
-    const [one, setOne] = useState(null)
-    const [two, setTwo] = useState(null)
+    const initialGame = Array.from(Array(12).keys()).concat(Array.from(Array(12).keys()));
+    const [cards, setCards] = useState(initialGame);
+    const [turnActive, setTurnActive] = useState(false);
+    const [one, setOne] = useState(null);
+    const [two, setTwo] = useState(null);
     useEffect(() => {
         if (two && (one === two)) {
             deleteCard(one)
         }
     })
     const deleteCard = (cardId) => {
-        console.log(cards)
-        console.log(cardId)
         setOne(null)
         setTwo(null)
         const cardsCopy = cards.slice();
@@ -21,24 +21,26 @@ export const Game = () => {
         setCards(location);
     }
 
-    const handleTurn = (setCard, setTurn, value) => {
+    const handleTurn = (setCard, value) => {
         setCard(value)
-        setTurn(prevTurn => !prevTurn)
+        setTurnActive(prevTurn => !prevTurn)
     }
 
     const takeTurn = (cardValue, setValueCallback) => {
-        handleTurn(setValueCallback, setTurnActive, cardValue) 
+        handleTurn(setValueCallback, cardValue) 
     }
-    console.log({one,two, turnActive})
-    const takeTurnCallback = turnActive ? (x) => takeTurn(x, setTwo) : (x) => takeTurn(x, setOne)  
+    const takeTurnCallback = turnActive ? (x) => takeTurn(x, setTwo) : (x) => takeTurn(x, setOne);
         return(
-            <>
-            <div>This is a board</div>
+            <div className={'game-board'}>
             {
-                cards.map((card, i) => {
-                    return (<Card key={`${card}-${i}-card`} takeTurn={takeTurnCallback} value={card} />)
+                initialGame.map((card, i) => {
+                    return (
+                    <CardHolder key={`${card}-${i}-card-holder`} gameCards={cards} value={card}>
+                        <Card key={`${card}-${i}-card`}  takeTurn={takeTurnCallback} value={card} />
+                    </CardHolder>
+                    )
                 })
             }
-        </>
+        </div>
         )
     }

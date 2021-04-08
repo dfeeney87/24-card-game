@@ -1,5 +1,7 @@
 export function Card(props) {
     return (
-        <div onClick={()=> props.takeTurn(props.value)}>{props.value}</div>
+        <div className={'card'} onClick={()=> props.takeTurn(props.value)}>
+            <p>{props.value}</p>
+            </div>
     )
 }
