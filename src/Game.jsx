@@ -1,30 +1,44 @@
-import React from 'react';
-import {Board} from './Board';
+import React, {useEffect, useState} from 'react';
+import {Card} from './Card';
 
-export class Game extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: Array.from(Array(12).keys())
+export const Game = () => {
+    const [cards, setCards] = useState(Array.from(Array(12).keys()).concat(Array.from(Array(12).keys())))
+    const [turnActive, setTurnActive] = useState(false)
+    const [one, setOne] = useState(null)
+    const [two, setTwo] = useState(null)
+    useEffect(() => {
+        if (two && (one === two)) {
+            deleteCard(one)
         }
+    })
+    const deleteCard = (cardId) => {
+        console.log(cards)
+        console.log(cardId)
+        setOne(null)
+        setTwo(null)
+        const cardsCopy = cards.slice();
+        const location = cardsCopy.filter(x => x !== cardId)
+        setCards(location);
     }
 
-    deleteCard = (cardId) => {
-        const cards = this.state.cards.slice();
-        // console.log(cards)
-        // console.log(cardId)
-        const location = cards.findIndex(x => x === cardId);
-        // console.log(location)
-        cards.splice(location, 1);
-        this.setState({cards: cards});
+    const handleTurn = (setCard, setTurn, value) => {
+        setCard(value)
+        setTurn(prevTurn => !prevTurn)
     }
 
-    render () {
-        console.log(this.state)
+    const takeTurn = (cardValue, setValueCallback) => {
+        handleTurn(setValueCallback, setTurnActive, cardValue) 
+    }
+    console.log({one,two, turnActive})
+    const takeTurnCallback = turnActive ? (x) => takeTurn(x, setTwo) : (x) => takeTurn(x, setOne)  
         return(
-            <div>
-                <Board cards={this.state.cards} deleteCard={this.deleteCard} />
-            </div>
+            <>
+            <div>This is a board</div>
+            {
+                cards.map((card, i) => {
+                    return (<Card key={`${card}-${i}-card`} takeTurn={takeTurnCallback} value={card} />)
+                })
+            }
+        </>
         )
     }
-}

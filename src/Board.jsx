@@ -6,8 +6,8 @@ export function Board(props) {
         <>
             <div>This is a board</div>
             {
-                props.cards.map(card => {
-                    return (<Card key={`${card}-card`} deleteCard={props.deleteCard} value={card} />)
+                props.cards.map((card, i) => {
+                    return (<Card key={`${card}-${i}-card`} deleteCard={props.deleteCard} takeTurn={props.takeTurn} value={card} />)
                 })
             }
         </>
