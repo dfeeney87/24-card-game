@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Card} from './Card';
 import {CardHolder} from './CardHolder';
+import { initializeGame } from './gameInitializer';
 
-function initializeGame () {
-    const matches = 12;
-    const arrayOne = Array.from(Array(matches).keys());
-    const arrayTwo = Array.from(Array(matches).keys());
-    return arrayOne.concat(arrayTwo).map((gm, i) => {
-        return {value: gm, hash: `${i}-gm`}
-    })
-}
+const initialGame = initializeGame();
 
 export const Game = () => {
-    const initialGame = initializeGame();
     const [cards, setCards] = useState(initialGame);
     const [turnActive, setTurnActive] = useState(false);
     const [one, setOne] = useState(null);

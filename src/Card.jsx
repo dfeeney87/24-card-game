@@ -3,6 +3,7 @@ import {useState} from 'react'
 export function Card(props) {
     const {selectedCards, value, takeTurn} = props;
     const [status, setStatus] = useState(false);
+    
     const clickHandler = () => {
         setStatus(prevStatus => !prevStatus);
         takeTurn(value)
@@ -11,6 +12,7 @@ export function Card(props) {
         return selectedCards.reduce((ac, it) => {
             const selected = it && it.hash && it.hash === value.hash;
             if (selected) {
+                console.log(value.hash)
                 ac = selected
             };
             return ac;
