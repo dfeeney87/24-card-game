@@ -1,20 +1,15 @@
+:root{
+  --main-bg-color: #2a1b3d;
+  --secondary-bg-color: #44318d;
+  --light-comp-color: #d83f87;
+  --dark-comp-color: #7d67a3;
+  --main-font-color: #A4B3B6;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background: var(--main-bg-color);
+  background: radial-gradient(circle, var(--main-bg-color) 30%, var(--secondary-bg-color) 69%, var(--dark-comp-color) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,51 +19,34 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-header {
+  padding: 40px 0;
 }
 
 .game-board {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .card-holder {
   width: 10%;
   height: 112px;
-  border: 3px solid #61dafb;
+  border: 3px solid var(--dark-comp-color);
   border-radius: 20%;
-  flex: 0 1 auto;
+  flex: 0 1 12%;
   margin: 10px 10px;
   display: flex;
 }
 
-/* .card {
-  width: 10%;
-  height: 112px;
-  border: 3px solid #61dafb;
-  border-radius: 20%;
-  flex: 0 1 auto;
-  margin: 10px 10px;
-} */
-
 .card-inner {
-  /* position: relative; */
   flex: 0 1 100%;
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
 }
 .active {
   transform: rotateY(180deg);
@@ -78,12 +56,33 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-}
-.card-front {
-  background-color: #bbb;
-  color: black;
+  border-radius: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .card-back {
-  background-color: cyan;
+  color: black;
+  border: var(--main-font-color) .5px solid;
+  background: var(--light-comp-color);
+  background: linear-gradient(45deg, var(--light-comp-color) 10%, var(--secondary-bg-color) 50%, var(--light-comp-color) 100%);
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 20%;
+}
+
+.card-front {
+  border: var(--main-font-color) .5px solid;
+  background-color: var(--dark-comp-color);
   transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-face {
+  font-size: calc(28px + 2vmin);
+  padding-top: 40%;
 }

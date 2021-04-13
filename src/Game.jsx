@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Card} from './Card';
 import {CardHolder} from './CardHolder';
 import { initializeGame } from './gameInitializer';
@@ -30,15 +30,14 @@ export const Game = () => {
             deleteCard(value)
         }
     }
-    console.log({one, two})
     const takeTurnCallback = turnActive ? (x) => handleTurn(setTwo, x) : (x) => handleTurn(setOne, x);
         return(
             <div className={'game-board'}>
             {
                 initialGame.map((card, i) => {
                     return (
-                    <CardHolder key={`${card}-${i}-card-holder`} gameCards={cards} value={card}>
-                        <Card key={`${card}-${i}-card`}  takeTurn={takeTurnCallback} value={card} selectedCards={[one,two]}/>
+                    <CardHolder key={`${i}-card-holder`} gameCards={cards} value={card}>
+                        <Card key={`${i}-card`}  takeTurn={takeTurnCallback} value={card} selectedCards={[one,two]}/>
                     </CardHolder>
                     )
                 })
